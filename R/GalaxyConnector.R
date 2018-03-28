@@ -12,14 +12,17 @@ gx_put <- function(filename, file_type="auto"){
 
 #' gx_get
 #'
-#' Download a dataset from the current Galaxy history by ID #
+#' Download a dataset from the current Galaxy history by ID or by name #
 #'
-#' @param file_id, Dataset ID number for current history
+#' @param files, Dataset ID number or Dataset name for current history
+#' @param identifier_type, hid or name
 
-gx_get <- function(file_id){
-    command <- paste("/usr/local/bin/get", "-i", file_id)
+gx_get <- function(files, identifier_type="hid"){
+    files_id = paste(files, collapse=" ")
+    command <- paste("/usr/local/bin/get", "-i", files_id, "-t", identifier_type)
     system(command)
-    return(paste("/import/", file_id, sep=""))
+    paths = paste0("/import/", files)
+    return(paths) 
 }
 
 
